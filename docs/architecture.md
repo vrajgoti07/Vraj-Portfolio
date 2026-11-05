@@ -157,3 +157,4 @@ evals/
 ├── ask-vraj.json             # 12-case test battery (in-scope, out-of-scope, injection)
 └── run-evals.ts              # Automated evaluation test runner
 ```
+

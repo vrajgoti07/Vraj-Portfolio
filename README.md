@@ -76,18 +76,21 @@ Instant global search and navigation built with `cmdk` allowing recruiters to ju
 - `npm` (or `pnpm` / `yarn`)
 
 ### Quick Start
+
+You can run the portfolio either directly from the root repository or from inside the `frontend/` directory:
+
+**Option A (From Root Monorepo)**:
 ```bash
-# 1. Clone repository
-git clone https://github.com/vrajgoti07/vraj-portfolio.git
-cd vraj-portfolio
+# 1. Install & run directly
+npm run dev
+```
 
-# 2. Install dependencies
-npm install
+**Option B (From `frontend/` Directory)**:
+```bash
+# 1. Navigate into frontend
+cd frontend
 
-# 3. Create environment configuration
-cp .env.example .env.local
-
-# 4. Start development server
+# 2. Run local development server
 npm run dev
 ```
 
@@ -119,17 +122,17 @@ NEXT_PUBLIC_SITE_URL="https://vrajgoti.com"
 
 ## 6. How to Edit Portfolio Content
 
-All copy and project data are structured as typed, clean TypeScript and Markdown files:
+All copy and project data are structured as typed, clean TypeScript and Markdown files inside `frontend/`:
 
-1. **Site Metadata & Socials**: Edit [`content/site.ts`](content/site.ts) to update your public email, availability status, resume path, and social handles.
-2. **Projects & Case Studies**: Edit [`content/projects.ts`](content/projects.ts) to update project details, stack tags, metrics, and architecture diagrams.
-3. **AI Grounding Knowledge Base**: Edit [`content/knowledge.md`](content/knowledge.md) to add new verified achievements, experience, and background details that the "Ask Vraj" assistant should know.
+1. **Site Metadata & Socials**: Edit [`frontend/content/site.ts`](frontend/content/site.ts) to update your public email, availability status, resume path, and social handles.
+2. **Projects & Case Studies**: Edit [`frontend/content/projects.ts`](frontend/content/projects.ts) to update project details, stack tags, metrics, and architecture diagrams.
+3. **AI Grounding Knowledge Base**: Edit [`frontend/content/knowledge.md`](frontend/content/knowledge.md) to add new verified achievements, experience, and background details that the "Ask Vraj" assistant should know.
 
 ---
 
 ## 7. Quality Gates & Testing
 
-Run the full automated test battery before deploying:
+Run the full automated test battery before deploying (from root or `frontend/`):
 
 ```bash
 # 1. Typecheck & Lint
@@ -152,7 +155,7 @@ npm run build
 
 ## 8. Deployment on Vercel
 
-The application is pre-configured for seamless zero-config deployment on [Vercel](https://vercel.com):
+The application is pre-configured for deployment on [Vercel](https://vercel.com):
 
 1. Push your repository to GitHub:
    ```bash
@@ -161,10 +164,11 @@ The application is pre-configured for seamless zero-config deployment on [Vercel
    git push origin main
    ```
 2. Import the project into your Vercel Dashboard.
-3. In **Project Settings → Environment Variables**, add:
+3. Set **Root Directory** to `frontend` (or keep default root with build command `npm run build`).
+4. In **Project Settings → Environment Variables**, add:
    - `AI_PROVIDER`: `gemini`
    - `GEMINI_API_KEY`: `<your-gemini-api-key>`
-4. Deploy! All 13 routes and SSG case studies prerender automatically.
+5. Deploy! All 13 routes and SSG case studies prerender automatically.
 
 ---
 
@@ -174,24 +178,25 @@ To finalize your personal assets, update the following marked placeholders:
 
 | File Path | Line | Placeholder Description |
 |---|---|---|
-| [`content/site.ts`](content/site.ts) | L7 | Public contact email |
-| [`content/site.ts`](content/site.ts) | L8 | Current availability status wording |
-| [`content/site.ts`](content/site.ts) | L9 | Public resume file (`/public/resume.pdf`) |
-| [`content/site.ts`](content/site.ts) | L12 | LinkedIn profile link |
-| [`content/site.ts`](content/site.ts) | L13 | Twitter/X profile link |
-| [`content/projects.ts`](content/projects.ts) | L36 | Knowledge-AI-Voice-Agent live demo link |
-| [`content/projects.ts`](content/projects.ts) | L66 | AI-Powered Intern Management live demo link |
-| [`content/projects.ts`](content/projects.ts) | L96 | Smart_Doc_Expiry_App live store/demo link |
-| [`content/projects.ts`](content/projects.ts) | L126 | AI-Learning-RoadMap live deployment link |
-| [`content/projects.ts`](content/projects.ts) | L154 | Smart-TimeTable-Generation live demo link |
-| [`components/about/duotone-portrait.tsx`](components/about/duotone-portrait.tsx) | L27 | Personal portrait photo |
-| [`components/about/about-section.tsx`](components/about/about-section.tsx) | L42 | Personalized bio paragraph |
-| [`components/hero/hero.tsx`](components/hero/hero.tsx) | L65 | Hero subline positioning statement |
-| [`components/journey/timeline.tsx`](components/journey/timeline.tsx) | L99 | Career/academic milestone details |
-| [`components/skills/skills-bento.tsx`](components/skills/skills-bento.tsx) | L82 | Specific tools and certifications |
+| [`frontend/content/site.ts`](frontend/content/site.ts) | L7 | Public contact email |
+| [`frontend/content/site.ts`](frontend/content/site.ts) | L8 | Current availability status wording |
+| [`frontend/content/site.ts`](frontend/content/site.ts) | L9 | Public resume file (`frontend/public/resume.pdf`) |
+| [`frontend/content/site.ts`](frontend/content/site.ts) | L12 | LinkedIn profile link |
+| [`frontend/content/site.ts`](frontend/content/site.ts) | L13 | Twitter/X profile link |
+| [`frontend/content/projects.ts`](frontend/content/projects.ts) | L36 | Knowledge-AI-Voice-Agent live demo link |
+| [`frontend/content/projects.ts`](frontend/content/projects.ts) | L66 | AI-Powered Intern Management live demo link |
+| [`frontend/content/projects.ts`](frontend/content/projects.ts) | L96 | Smart_Doc_Expiry_App live store/demo link |
+| [`frontend/content/projects.ts`](frontend/content/projects.ts) | L126 | AI-Learning-RoadMap live deployment link |
+| [`frontend/content/projects.ts`](frontend/content/projects.ts) | L154 | Smart-TimeTable-Generation live demo link |
+| [`frontend/components/about/duotone-portrait.tsx`](frontend/components/about/duotone-portrait.tsx) | L27 | Personal portrait photo |
+| [`frontend/components/about/about-section.tsx`](frontend/components/about/about-section.tsx) | L42 | Personalized bio paragraph |
+| [`frontend/components/hero/hero.tsx`](frontend/components/hero/hero.tsx) | L65 | Hero subline positioning statement |
+| [`frontend/components/journey/timeline.tsx`](frontend/components/journey/timeline.tsx) | L99 | Career/academic milestone details |
+| [`frontend/components/skills/skills-bento.tsx`](frontend/components/skills/skills-bento.tsx) | L82 | Specific tools and certifications |
 
 ---
 
 ## 10. License
 
 Released under the [MIT License](LICENSE). Built with craft by Vraj Goti.
+
