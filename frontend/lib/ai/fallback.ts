@@ -47,7 +47,7 @@ export const FALLBACK_FAQS: FallbackFAQ[] = [
       `You can reach Vraj via email at ${SITE_CONFIG.email}, view his code on GitHub (${SITE_CONFIG.socials.github}), or message him on LinkedIn (${SITE_CONFIG.socials.linkedin}).`,
   },
   {
-    keywords: ["what", "build", "built", "project", "projects", "ai"],
+    keywords: ["built", "build", "project", "projects", "portfolio", "systems", "what has vraj built", "what has he built"],
     response:
       "Vraj has built several notable AI and full-stack systems, including:\n\n1. **Knowledge-AI-Voice-Agent**: Low-latency conversational voice AI (<750ms roundtrip) with document grounding.\n2. **AI-Powered Intern Management System**: Automated PR analysis and mentor review platform saving 65% of review time.\n3. **Smart_Doc_Expiry_App**: OCR-based document expiration tracking built with Flutter and Cloud Vision.\n4. **AI-Learning-RoadMap**: Open-source visual curriculum with 150+ milestones across 5 AI tracks.\n5. **Smart-TimeTable-Generation**: Genetic algorithm generating conflict-free schedules in under 45s.",
   },
@@ -62,8 +62,13 @@ export function resolveFallbackResponse(query: string): string {
   for (const faq of FALLBACK_FAQS) {
     let score = 0;
     for (const kw of faq.keywords) {
-      if (normalized.includes(kw)) {
-        score += kw.length >= 4 ? 2 : 1;
+      if (kw.includes(" ") && normalized.includes(kw)) {
+        score += 5;
+      } else {
+        const regex = new RegExp(`\\b${kw}\\b`, "i");
+        if (regex.test(normalized)) {
+          score += 3;
+        }
       }
     }
 
@@ -73,7 +78,7 @@ export function resolveFallbackResponse(query: string): string {
     }
   }
 
-  if (bestMatch && highestScore >= 1) {
+  if (bestMatch && highestScore >= 3) {
     return bestMatch.response;
   }
 
