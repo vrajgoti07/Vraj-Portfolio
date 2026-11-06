@@ -59,7 +59,7 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
+    <form suppressHydrationWarning onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
       {/* Honeypot field (hidden from genuine users) */}
       <input
         type="text"
@@ -70,6 +70,7 @@ export function ContactForm() {
         autoComplete="off"
         className="sr-only"
         aria-hidden="true"
+        suppressHydrationWarning
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -85,6 +86,7 @@ export function ContactForm() {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="Jane Doe"
             disabled={status === "loading"}
+            suppressHydrationWarning
             className="w-full px-4 py-3 rounded-lg border border-border-hairline bg-bg-surface text-xs sm:text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-all"
           />
         </div>
@@ -101,6 +103,7 @@ export function ContactForm() {
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             placeholder="jane@company.com"
             disabled={status === "loading"}
+            suppressHydrationWarning
             className="w-full px-4 py-3 rounded-lg border border-border-hairline bg-bg-surface text-xs sm:text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-all"
           />
         </div>
@@ -118,6 +121,7 @@ export function ContactForm() {
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Tell me about your project, team, or opportunity..."
           disabled={status === "loading"}
+          suppressHydrationWarning
           className="w-full px-4 py-3 rounded-lg border border-border-hairline bg-bg-surface text-xs sm:text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-all resize-none"
         />
       </div>
@@ -145,6 +149,7 @@ export function ContactForm() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
         <button
           type="submit"
+          suppressHydrationWarning
           disabled={status === "loading"}
           className="px-6 py-3 rounded font-mono text-xs uppercase tracking-wider font-semibold bg-accent text-accent-contrast hover:bg-accent/90 transition-all flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50"
         >

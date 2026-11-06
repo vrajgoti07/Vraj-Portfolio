@@ -24,24 +24,43 @@ export function WorkSection() {
     if (!section || !track) return;
 
     const ctx = gsap.context(() => {
-      // Calculate how far track should scroll horizontally
-      const scrollDistance = track.scrollWidth - window.innerWidth + 120;
+      // Calculate how far track should scroll horizontally dynamically
+      const getScrollDistance = () => {
+        if (!track) return 0;
+        return Math.max(0, track.scrollWidth - window.innerWidth + 120);
+      };
 
       gsap.to(track, {
-        x: -scrollDistance,
+        x: () => -getScrollDistance(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
           pin: true,
+          pinSpacing: true,
           scrub: 1,
           start: "top top",
-          end: () => `+=${scrollDistance * 1.2}`,
+          end: () => `+=${getScrollDistance()}`,
           invalidateOnRefresh: true,
         },
       });
     }, section);
 
+    // Refresh ScrollTrigger when section or cards resize
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh();
+    });
+    resizeObserver.observe(section);
+    resizeObserver.observe(track);
+
+    // Refresh after custom web fonts finish rendering
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    }
+
     return () => {
+      resizeObserver.disconnect();
       ctx.revert();
     };
   }, []);

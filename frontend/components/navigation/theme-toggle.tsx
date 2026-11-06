@@ -71,6 +71,7 @@ export function ThemeToggle() {
     return (
       <button
         type="button"
+        suppressHydrationWarning
         className="w-9 h-9 flex items-center justify-center rounded-full border border-border-hairline text-text-muted hover:text-text-primary hover:border-border-subtle transition-colors"
         aria-label="Toggle theme"
       >
@@ -82,6 +83,7 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
+      suppressHydrationWarning
       onClick={toggleTheme}
       className="w-9 h-9 flex items-center justify-center rounded-full border border-border-hairline text-text-muted hover:text-text-primary hover:border-border-subtle transition-colors focus-visible:ring-2 focus-visible:ring-accent"
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}

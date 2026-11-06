@@ -75,17 +75,19 @@ export async function POST(req: NextRequest) {
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "X-Provider": "firewall-refusal",
+          "X-Sources": "[]",
         },
       });
     }
 
     // 4. Stream response from AI adapter
-    const { stream, provider } = await streamAIResponse(sanitization.sanitized, history);
+    const { stream, provider, sources } = await streamAIResponse(sanitization.sanitized, history);
 
     return new Response(stream, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "X-Provider": provider,
+        "X-Sources": JSON.stringify(sources),
         "X-RateLimit-Remaining": String(rateLimit.remaining),
       },
     });

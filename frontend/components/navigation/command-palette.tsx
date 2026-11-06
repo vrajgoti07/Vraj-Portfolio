@@ -80,6 +80,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             <Search className="w-4 h-4 text-text-muted shrink-0" />
             <Command.Input
               autoFocus
+              suppressHydrationWarning
               placeholder="Type a command, project, or section..."
               className="w-full bg-transparent text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
             />
@@ -104,7 +105,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 <span>01. Featured Work</span>
               </Command.Item>
               <Command.Item
-                onSelect={() => runCommand(() => router.push("/#ask"))}
+                onSelect={() => runCommand(() => router.push("/ask"))}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-lg cursor-pointer hover:bg-bg-elevated hover:text-accent text-text-primary transition-colors"
               >
                 <MessageSquare className="w-3.5 h-3.5 text-accent" />

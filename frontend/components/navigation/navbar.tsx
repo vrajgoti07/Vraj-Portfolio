@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
 
 interface NavbarProps {
@@ -8,6 +9,9 @@ interface NavbarProps {
 }
 
 export function Navbar({ onOpenCommandPalette }: NavbarProps) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <>
       {/* Accessible Skip Link */}
@@ -37,36 +41,39 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
           {/* Navigation links & actions */}
           <nav aria-label="Main Navigation" className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-6 text-xs font-mono tracking-wider uppercase text-text-muted">
-              <a
-                href="#work"
+              <Link
+                href={isHome ? "#work" : "/#work"}
                 className="hover:text-text-primary transition-colors focus-visible:text-accent"
               >
                 // 01 Work
-              </a>
-              <a
-                href="#ask"
-                className="hover:text-text-primary transition-colors focus-visible:text-accent"
+              </Link>
+              <Link
+                href="/ask"
+                className={`transition-colors focus-visible:text-accent ${
+                  pathname === "/ask" ? "text-accent font-semibold" : "hover:text-text-primary"
+                }`}
               >
                 // 02 Ask
-              </a>
-              <a
-                href="#about"
+              </Link>
+              <Link
+                href={isHome ? "#about" : "/#about"}
                 className="hover:text-text-primary transition-colors focus-visible:text-accent"
               >
                 // 03 About
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                href={isHome ? "#contact" : "/#contact"}
                 className="hover:text-text-primary transition-colors focus-visible:text-accent"
               >
                 // 04 Contact
-              </a>
+              </Link>
             </div>
 
             <div className="flex items-center gap-3">
               {/* Cmd+K trigger pill */}
               <button
                 type="button"
+                suppressHydrationWarning
                 onClick={onOpenCommandPalette}
                 className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded border border-border-hairline bg-bg-surface text-text-muted hover:text-text-primary hover:border-border-subtle text-xs font-mono transition-all"
                 aria-label="Open Command Palette (Cmd + K)"
@@ -86,4 +93,3 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
     </>
   );
 }
-

@@ -9,6 +9,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      zIndex: {
+        base: "0",
+        content: "10",
+        nav: "40",
+        palette: "50",
+        cursor: "60",
+      },
       colors: {
         bg: {
           primary: "var(--bg-primary)",

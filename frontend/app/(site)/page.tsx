@@ -1,7 +1,6 @@
 import { IntroLoader } from "@/components/hero/intro-loader";
 import { Hero } from "@/components/hero/hero";
 import { WorkSection } from "@/components/work/work-section";
-import { AskVraj } from "@/components/ask-vraj/ask-vraj";
 import { SkillsBento } from "@/components/skills/skills-bento";
 import { Timeline } from "@/components/journey/timeline";
 import { AboutSection } from "@/components/about/about-section";
@@ -20,9 +19,6 @@ export default function HomePage() {
 
         {/* 01. Featured Work (GSAP Horizontal Deck / Mobile Stack) */}
         <WorkSection />
-
-        {/* 02. Ask Vraj (Grounded Streaming AI Assistant) */}
-        <AskVraj />
 
         {/* Technical Capabilities (Bento Grid & Infinite Marquee) */}
         <SkillsBento />

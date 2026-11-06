@@ -47,6 +47,7 @@ export function ContactSection() {
               <button
                 type="button"
                 onClick={copyEmail}
+                suppressHydrationWarning
                 className="flex items-center justify-between gap-3 p-3 rounded-lg border border-border-subtle bg-bg-elevated hover:border-accent group transition-all text-left"
                 aria-label="Copy email address"
               >

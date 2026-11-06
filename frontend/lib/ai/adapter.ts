@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { resolveFallbackResponse } from "./fallback";
+import { resolveFallbackResult, detectSources } from "./fallback";
 
 export interface ChatMessage {
   role: "user" | "assistant";
@@ -10,6 +10,7 @@ export interface ChatMessage {
 export interface StreamResponse {
   stream: ReadableStream<Uint8Array>;
   provider: "gemini" | "anthropic" | "offline-fallback";
+  sources: string[];
 }
 
 function getKnowledgeBase(): string {
@@ -120,6 +121,7 @@ export async function streamAIResponse(
         return {
           stream: res.body.pipeThrough(transformStream),
           provider: "gemini",
+          sources: detectSources(message),
         };
       }
     } catch (e) {
@@ -180,6 +182,7 @@ export async function streamAIResponse(
         return {
           stream: res.body.pipeThrough(transformStream),
           provider: "anthropic",
+          sources: detectSources(message),
         };
       }
     } catch (e) {
@@ -188,10 +191,11 @@ export async function streamAIResponse(
   }
 
   // 3. Deterministic Offline Fallback Mode
-  const fallbackText = resolveFallbackResponse(message);
+  const fallback = resolveFallbackResult(message);
   return {
-    stream: createTextStream(fallbackText),
+    stream: createTextStream(fallback.answer),
     provider: "offline-fallback",
+    sources: fallback.sources,
   };
 }
 

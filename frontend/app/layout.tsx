@@ -82,7 +82,7 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Anti-flash theme script */}
+        {/* Anti-flash theme script & extension attribute cleaner */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -92,6 +92,18 @@ export default function RootLayout({
                   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   const theme = storedTheme || (prefersDark ? 'dark' : 'light');
                   document.documentElement.setAttribute('data-theme', theme);
+
+                  // Clean extension-injected attributes (Bitwarden, 1Password, McAfee) to avoid hydration mismatch
+                  const cleanAttrs = function() {
+                    const els = document.querySelectorAll('[fdprocessedid]');
+                    for (var i = 0; i < els.length; i++) {
+                      els[i].removeAttribute('fdprocessedid');
+                    }
+                  };
+                  cleanAttrs();
+                  if (typeof document !== 'undefined') {
+                    document.addEventListener('DOMContentLoaded', cleanAttrs, { once: true });
+                  }
                 } catch (e) {}
               })();
             `,
@@ -132,7 +144,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-bg-primary text-text-primary antialiased selection:bg-accent selection:text-accent-contrast">
+      <body
+        suppressHydrationWarning
+        className="bg-bg-primary text-text-primary antialiased selection:bg-accent selection:text-accent-contrast"
+      >
         <SmoothScroll>
           <ScrollProgress />
           <HeaderWithPalette />
